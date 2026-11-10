@@ -1,0 +1,30 @@
+# Exact pins: LangChain 1.x moved imports compared with 0.x, and an unpinned
+# build months from now could pull an incompatible release and break the Space.
+#
+# Free Hugging Face Spaces have no GPU. This extra index provides CPU-only
+# PyTorch wheels; the "+cpu" suffix on the torch pin forces that build, which
+# skips ~2GB of unused CUDA libraries.
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+# --- Web UI ---
+streamlit==1.67.0
+
+# --- LangChain (1.x import locations - see src/ingest.py) ---
+langchain-core==1.7.7
+langchain-community==0.4.2
+langchain-text-splitters==1.1.3
+langchain-huggingface==1.2.3
+langchain-chroma==1.1.0
+
+# --- Vector store + PDF parsing ---
+chromadb==1.5.9
+pypdf==7.0.0
+
+# --- Embeddings + local LLM (CPU) ---
+torch==2.15.0+cpu
+sentence-transformers==6.2.0
+transformers==5.22.2
+
+# --- Gemini (google-genai replaces the discontinued google-generativeai) ---
+google-genai==3.0.0
+python-dotenv==1.2.4
