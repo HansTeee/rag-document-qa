@@ -15,7 +15,7 @@ license: mit
 
 Ask questions about your PDFs and get answers that cite the page they came from — and that say "I don't know" when the documents don't cover it.
 
-**Live demo:** https://huggingface.co/spaces/YOUR-HF-USERNAME/rag-document-qa  <!-- replace after deploying -->
+**Live demo:** https://huggingface.co/spaces/HansTee89411/rag-document-qa
 
 ![Screenshot of the app answering questions with cited sources](docs/screenshot.png)
 
@@ -83,7 +83,7 @@ Precisely, rather than "completely free":
 ## Run it locally (Windows CMD)
 
 ```bat
-git clone https://github.com/YOUR-GITHUB-USERNAME/rag-document-qa.git
+git clone https://github.com/HansTeee/rag-document-qa.git
 cd rag-document-qa
 py -3.13 -m venv .venv
 .venv\Scripts\activate
