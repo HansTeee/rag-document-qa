@@ -1,0 +1,14 @@
+{
+  "n_questions": 20,
+  "n_calls": 32,
+  "errors": 0,
+  "unanswerable_refused": 18,
+  "unanswerable_total": 18,
+  "answerable_false_refusals": 2,
+  "answerable_keyword_correct": 10,
+  "answerable_total": 14,
+  "retrieval_hits": 13,
+  "retrieval_total": 14,
+  "avg_latency_s": 6.48,
+  "max_latency_s": 12.74
+}

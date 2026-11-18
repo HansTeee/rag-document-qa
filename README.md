@@ -118,7 +118,61 @@ sample_docs/           the small demo PDF bundled with the app
 scripts/               generator for the sample PDF
 test_retrieval.py      retrieval-only checks (scores, ranks)
 test_rag.py            end-to-end checks, Gemini vs local comparison
+evaluate_rag.py        evaluation script (refusals, accuracy, retrieval, latency)
+eval_adapter.py        exposes the pipeline as ask(question) for the evaluation
+eval_questions.json    the 20-question evaluation set
+results/               evaluation output (graded CSV + summary JSON)
 ```
+
+## Evaluation
+
+Measured with [`evaluate_rag.py`](evaluate_rag.py) on the two PDFs in `data/` (an 11-page rPPG research paper and an 8-page IEEE paper on the LUTANG engagement-detection system; 102 chunks in ChromaDB), using the same Gemini generator (`gemini-3.5-flash-lite`, temperature 0, k = 8), prompt and chunking as the app. [`eval_adapter.py`](eval_adapter.py) calls the pipeline with no local-model fallback, so every answer comes from Gemini.
+
+**Question set** ([`eval_questions.json`](eval_questions.json), 20 questions, each answer checked against the PDF text before the run):
+
+| Category | # | Example |
+|---|---|---|
+| Direct fact | 4 | *How many videos does the CohFace dataset contain?* |
+| Mentioned once, in passing | 3 | *What minimum peak distance was used with findpeaks?* |
+| Needs two sections (one crosses both PDFs) | 2 | *How many videos were left for the final analysis in Study 1 and in Study 2?* |
+| Different vocabulary than the document | 3 | *Which tool did the authors use to automatically search for the best hyperparameter values?* (paper: "tuned using the Optuna optimization framework") |
+| Summary | 2 | *Summarize the main data-cleaning steps applied to the Study 2 videos.* |
+| Unanswerable: on-topic but not in the docs | 2 | *What learning rate and batch size were used to train the LUTANG LSTM?* |
+| Unanswerable: off-topic | 2 | *Who won the 2022 FIFA World Cup?* |
+| Unanswerable: false premise | 2 | *Why did the LUTANG authors choose a Transformer encoder instead of an LSTM?* |
+
+Each unanswerable question was asked 3 times (18 calls), each answerable question once (14 calls). Every answer was graded by hand against the source passage ([`results/rag_eval_results.csv`](results/rag_eval_results.csv), columns `manual_correct`, `citation_ok`, `grading_note`).
+
+**Results**
+
+| Metric | Result | How it was measured |
+|---|---|---|
+| Refused unanswerable questions | **18/18** (100%) | 6 questions × 3 runs; every reply was the exact refusal sentence, no invented facts |
+| Answerable questions fully correct | **10/14** (71%) | manual grading against the PDF |
+| Answerable questions partially correct | 2/14 | right on one part, wrong/incomplete on another |
+| False refusals (answer *was* in the docs) | 2/14 | both caused by retrieval, see below |
+| Correct page cited | 10/12 answered | 1 answer added two non-existent page numbers, 1 cited the wrong page |
+| Retrieval hit rate (script) | 13/14 | expected page (±1, as the script allows) or keywords in the top-8 chunks — lenient, see limitations |
+| Latency, average / slowest | 6.48 s / 12.74 s | 32 calls, free-tier Gemini, includes embedding the question + retrieval |
+
+**Example answers**
+
+- ✅ Correct, with citation — *"What minimum peak distance was used with the findpeaks function when detecting peaks in the BVP signals?"*
+  → "A minimum peak distance of 450 ms was used with the findpeaks function ([10] Remote photoplethysmography (rPPG) in the wild Remote heart rate.pdf, p. 2)." — matches page 2.
+- ✅ Refusal on a false premise — *"Why did the LUTANG authors choose a Transformer encoder instead of an LSTM for their final model?"* (LUTANG uses an LSTM)
+  → "I don't have enough information in these documents to answer that." (3/3 runs)
+- ❌ Failure — *"In the rPPG paper, how many videos were left for the final analysis in Study 1 and how many in Study 2?"*
+  → Study 2 = 151 (correct), but Study 1 = "N = 152" — an intermediate count from earlier on page 3. The chunk with the final number (141) ranked 16th, so the model never saw it.
+
+**Limitations found by this evaluation**
+
+- **Every wrong or incomplete answer was a retrieval miss.** In all 4 cases the passage needed ranked 11th–20th, outside the top 8 the model sees: Study 1's final count (16th), LUTANG's rPPG MAE (14th), the Optuna sentence (20th), the rest of the cleaning steps (11th).
+- **Multi-section questions are the weakest category** (0/2 fully correct). When one half is missing from the context, the model either refuses the whole question (cross-document MAE question) or grabs a nearby wrong number.
+- **Vocabulary mismatch hurts retrieval.** "Automatically search for the best hyperparameter values" did not retrieve "systematically tuned using the Optuna optimization framework"; the top hit was the Optuna entry in the reference list, so the model (correctly, given what it saw) refused.
+- **Summaries are truncated by k.** The data-cleaning summary listed 2 of 5 steps, because the other steps were in a chunk ranked 11th.
+- **Citations are mostly but not always right.** 2 of 12 answers cited pages that did not contain the fact (one cited pages that were not even in the retrieved context), so the source list in the UI still matters.
+- **The refusal behaviour is conservative.** It never hallucinated, but it also refused 2 answerable questions rather than answer partially.
+- **Small test set.** 20 questions on 2 papers; grading was done by the author. The script's retrieval hit rate is lenient (it accepts the page after the expected one, and the cross-document question counted as a hit with only one of its two passages retrieved).
 
 ## Limitations
 

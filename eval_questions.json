@@ -1,0 +1,144 @@
+[
+  {
+    "question": "How many videos does the CohFace dataset contain?",
+    "answerable": true,
+    "category": "direct fact",
+    "expected_keywords": ["164"],
+    "expected_file": "Remote photoplethysmography",
+    "expected_pages": [2]
+  },
+  {
+    "question": "What overall accuracy did LUTANG achieve on the ternary DAiSEE engagement classification?",
+    "answerable": true,
+    "category": "direct fact",
+    "expected_keywords": ["0.56"],
+    "expected_file": "SSL_19_CoE_199_IEEE_Paper_.pdf",
+    "expected_pages": [1, 4]
+  },
+  {
+    "question": "Which online platform hosted the Study 2 experiment in the remote photoplethysmography (rPPG) paper?",
+    "answerable": true,
+    "category": "direct fact",
+    "expected_keywords": ["Gorilla"],
+    "expected_file": "Remote photoplethysmography",
+    "expected_pages": [4]
+  },
+  {
+    "question": "What mean System Usability Scale (SUS) score did the LUTANG system receive?",
+    "answerable": true,
+    "category": "direct fact",
+    "expected_keywords": ["78.75"],
+    "expected_file": "SSL_19_CoE_199_IEEE_Paper_.pdf",
+    "expected_pages": [6]
+  },
+  {
+    "question": "What minimum peak distance was used with the findpeaks function when detecting peaks in the BVP signals?",
+    "answerable": true,
+    "category": "mentioned once",
+    "expected_keywords": ["450"],
+    "expected_file": "Remote photoplethysmography",
+    "expected_pages": [2]
+  },
+  {
+    "question": "In LUTANG, which color space was the cheek region of interest converted to before extracting skin pixels?",
+    "answerable": true,
+    "category": "mentioned once",
+    "expected_keywords": ["YCrCb"],
+    "expected_file": "SSL_19_CoE_199_IEEE_Paper_.pdf",
+    "expected_pages": [3]
+  },
+  {
+    "question": "How long was the audio beep that told participants a video recording had started in the online rPPG study?",
+    "answerable": true,
+    "category": "mentioned once",
+    "expected_keywords": ["200"],
+    "expected_file": "Remote photoplethysmography",
+    "expected_pages": [4]
+  },
+  {
+    "question": "In the rPPG paper, how many videos were left for the final analysis in Study 1 and how many in Study 2?",
+    "answerable": true,
+    "category": "multi-section",
+    "expected_keywords": ["141", "151"],
+    "expected_file": "Remote photoplethysmography",
+    "expected_pages": [3, 5]
+  },
+  {
+    "question": "What heart-rate MAE did LUTANG's rPPG algorithm achieve against smartwatch ground truth, and what MAE did the Di Lernia et al. rPPG algorithm achieve in Study 2 when pooling all duration conditions?",
+    "answerable": true,
+    "category": "multi-section",
+    "expected_keywords": ["5.86", "5.50"],
+    "expected_file": "",
+    "expected_pages": [3, 6]
+  },
+  {
+    "question": "At peak, what share of the server's processor did the student engagement system use while serving 100 students at the same time?",
+    "answerable": true,
+    "category": "different vocabulary",
+    "expected_keywords": ["19.58"],
+    "expected_file": "SSL_19_CoE_199_IEEE_Paper_.pdf",
+    "expected_pages": [5, 6]
+  },
+  {
+    "question": "How much RAM did the engagement monitor consume on average during the hour-long real classroom trial?",
+    "answerable": true,
+    "category": "different vocabulary",
+    "expected_keywords": ["394.33"],
+    "expected_file": "SSL_19_CoE_199_IEEE_Paper_.pdf",
+    "expected_pages": [6]
+  },
+  {
+    "question": "Which tool did the engagement-detection authors use to automatically search for the best hyperparameter values?",
+    "answerable": true,
+    "category": "different vocabulary",
+    "expected_keywords": ["Optuna"],
+    "expected_file": "SSL_19_CoE_199_IEEE_Paper_.pdf",
+    "expected_pages": [3]
+  },
+  {
+    "question": "Summarize the main data-cleaning steps applied to the Study 2 online videos in the rPPG paper.",
+    "answerable": true,
+    "category": "summary",
+    "expected_keywords": ["outlier", "120"],
+    "expected_file": "Remote photoplethysmography",
+    "expected_pages": [5]
+  },
+  {
+    "question": "Summarize how LUTANG's system architecture moves data from the student's browser to the teacher's dashboard.",
+    "answerable": true,
+    "category": "summary",
+    "expected_keywords": ["Django", "WebSocket"],
+    "expected_file": "SSL_19_CoE_199_IEEE_Paper_.pdf",
+    "expected_pages": [3]
+  },
+  {
+    "question": "What F1-score did LUTANG achieve when classifying the Boredom affective state of DAiSEE?",
+    "answerable": false,
+    "category": "on-topic, not in docs"
+  },
+  {
+    "question": "What learning rate and batch size were used to train the LUTANG LSTM?",
+    "answerable": false,
+    "category": "on-topic, not in docs"
+  },
+  {
+    "question": "Who won the 2022 FIFA World Cup?",
+    "answerable": false,
+    "category": "off-topic"
+  },
+  {
+    "question": "What is the capital city of Australia?",
+    "answerable": false,
+    "category": "off-topic"
+  },
+  {
+    "question": "Why did the LUTANG authors choose a Transformer encoder instead of an LSTM for their final model?",
+    "answerable": false,
+    "category": "false premise"
+  },
+  {
+    "question": "What heart-rate accuracy did the rPPG paper report for its third study using Zoom recordings?",
+    "answerable": false,
+    "category": "false premise"
+  }
+]

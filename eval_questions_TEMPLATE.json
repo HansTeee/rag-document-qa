@@ -1,0 +1,73 @@
+[
+  {
+    "question": "REPLACE: a question whose answer is stated clearly in one of your PDFs",
+    "answerable": true,
+    "category": "direct fact",
+    "expected_keywords": ["word that must appear in a correct answer"],
+    "expected_file": "your_file.pdf",
+    "expected_pages": [3]
+  },
+  {
+    "question": "REPLACE: another direct-fact question",
+    "answerable": true,
+    "category": "direct fact",
+    "expected_keywords": ["keyword"],
+    "expected_file": "your_file.pdf",
+    "expected_pages": [5]
+  },
+  {
+    "question": "REPLACE: a fact mentioned only ONCE, in passing",
+    "answerable": true,
+    "category": "mentioned once",
+    "expected_keywords": ["keyword"],
+    "expected_file": "your_file.pdf",
+    "expected_pages": [12]
+  },
+  {
+    "question": "REPLACE: another mentioned-once fact",
+    "answerable": true,
+    "category": "mentioned once",
+    "expected_keywords": ["keyword"],
+    "expected_file": "your_file.pdf",
+    "expected_pages": [20]
+  },
+  {
+    "question": "REPLACE: a question that needs info from two different sections",
+    "answerable": true,
+    "category": "multi-section",
+    "expected_keywords": ["keyword from section A", "keyword from section B"],
+    "expected_file": "",
+    "expected_pages": [4, 18]
+  },
+  {
+    "question": "REPLACE: a question using DIFFERENT words than the document uses (synonyms)",
+    "answerable": true,
+    "category": "different vocabulary",
+    "expected_keywords": ["keyword"],
+    "expected_file": "your_file.pdf",
+    "expected_pages": [7]
+  },
+  {
+    "question": "REPLACE: a summary-style question, e.g. 'What are the main steps of X?'",
+    "answerable": true,
+    "category": "summary",
+    "expected_keywords": ["keyword"],
+    "expected_file": "your_file.pdf",
+    "expected_pages": []
+  },
+  {
+    "question": "REPLACE: related to the topic but NOT in your PDFs (e.g. a newer version, another author)",
+    "answerable": false,
+    "category": "on-topic, not in docs"
+  },
+  {
+    "question": "REPLACE: completely unrelated, e.g. 'Who won the 2022 FIFA World Cup?'",
+    "answerable": false,
+    "category": "off-topic"
+  },
+  {
+    "question": "REPLACE: a trick question with a false premise, e.g. 'Why does chapter 9 say X?' when there is no chapter 9",
+    "answerable": false,
+    "category": "false premise"
+  }
+]
